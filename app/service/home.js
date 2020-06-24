@@ -13,8 +13,18 @@ class HomeService extends Service {
     );
     return result.res.data;
   }
-  async getUserInfo(params) {
-    const { appId, appSecret } = this.app.config;
+  async getUserInfo(params) {}
+  async register(params) {
+    console.log(this.app);
+    let res = await this.app.mysql.insert("user", {
+      ...params,
+    });
+    const insertSuccess = res.affectedRows === 1;
+    if (insertSuccess) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 }
 
